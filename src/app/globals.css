@@ -1,0 +1,126 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* Light-only site: keep `dark:` bound to a class we never set, so OS dark mode
+   doesn't apply shadcn's dark variants on top of the light palette. */
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-fraunces), ui-serif, Georgia, serif;
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-star: var(--star);
+  --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-deep: var(--whatsapp-deep);
+  --color-ink-panel: var(--ink-panel);
+  --color-ink-panel-foreground: var(--ink-panel-foreground);
+  --color-ink-panel-muted: var(--ink-panel-muted);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Palette: calm clinical teal on a warm cream ground. All text pairs meet WCAG AA. */
+:root {
+  color-scheme: light;
+  --background: #fbf8f3;
+  --foreground: #172a2b;
+  --card: #ffffff;
+  --card-foreground: #172a2b;
+  --popover: #ffffff;
+  --popover-foreground: #172a2b;
+  --primary: #0e5e57; /* 7.6:1 with white */
+  --primary-foreground: #ffffff;
+  --secondary: #e6f1ed;
+  --secondary-foreground: #0d4a44;
+  --muted: #f3ede3;
+  --muted-foreground: #4b5a5a; /* 6.6:1 on background */
+  --accent: #e6f1ed;
+  --accent-foreground: #0d4a44;
+  --destructive: #b42318;
+  --border: #e4ddd1;
+  --input: #d9d1c3;
+  --ring: #0e5e57;
+  --radius: 0.75rem;
+  --star: #e8a020;
+  --whatsapp: #25d366; /* WhatsApp brand green — pair with white glyphs only */
+  --whatsapp-deep: #0f7a5c; /* text/icon-safe WhatsApp green on light grounds */
+  --ink-panel: #0b3b37;
+  --ink-panel-foreground: #f1f6f3;
+  --ink-panel-muted: #b7cbc5;
+}
+
+@utility page-container {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 72rem;
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+
+  @media (width >= 40rem) {
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
+  }
+
+  @media (width >= 64rem) {
+    padding-left: max(2rem, env(safe-area-inset-left));
+    padding-right: max(2rem, env(safe-area-inset-right));
+  }
+}
+
+/* One star per 26×24 tile (2px trailing gap), repeated horizontally. Used by <StarRating>. */
+@utility stars-mask {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 24'%3E%3Cpath d='M12 1.6l3.09 6.26 6.91 1-5 4.87 1.18 6.88L12 17.36l-6.18 3.25L7 13.73 2 8.86l6.91-1L12 1.6z'/%3E%3C/svg%3E");
+  mask-repeat: repeat-x;
+  mask-size: auto 100%;
+  mask-position: left center;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    -webkit-tap-highlight-color: transparent;
+    text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
